@@ -1,12 +1,19 @@
-import { useState, useMemo } from 'react'
-import { articles } from '@/data/articles'
-import ArticleCard from '@/components/ArticleCard'
-import CategoryFilter from '@/components/CategoryFilter'
-import SearchBar from '@/components/SearchBar'
+import { useEffect, useState } from 'react';
+import ArticleCard from '@/components/ArticleCard';
+import CategoryFilter from '@/components/CategoryFilter';
+import SearchBar from '@/components/SearchBar';
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const [searchQuery, setSearchQuery] = useState('')
+  const [articles, setArticles] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    fetch('/api/news')
+      .then(res => res.json())
+      .then(data => setArticles(data));
+  }, []);
+
 
   const categories = useMemo(() => {
     const cats = new Set(articles.map(article => article.category))
