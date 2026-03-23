@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-// Extend global type to include mongoose cache
+// Extend the global type
 declare global {
   // eslint-disable-next-line no-var
   var mongoose: {
